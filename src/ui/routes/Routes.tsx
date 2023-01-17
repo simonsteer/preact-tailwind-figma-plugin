@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { RouteName } from '~/shared/types'
 import { useRouter } from '~/ui/hooks'
 
 import { About } from './About'
@@ -9,17 +10,22 @@ const ROUTE_MAP = {
   Home,
 }
 
+const DEFAULT_ROUTE: RouteName = 'About'
+
 export default function Routes() {
   const { route, routeTo } = useRouter()
 
   useEffect(() => {
-    routeTo('Home')
+    routeTo(DEFAULT_ROUTE)
   }, [])
 
-  if (route === null) {
-    return <p className="p-4 font-bold text-sm">loading...</p>
-  }
+  if (!route) return null
 
   const RouteComponent = ROUTE_MAP[route.name]
-  return <RouteComponent data={route.data as any} />
+
+  return (
+    <div className="animate-fade-in">
+      <RouteComponent data={route.data as any} />
+    </div>
+  )
 }

@@ -10,13 +10,11 @@ export type RouteData = {
   }
 }[RouteName]
 
-export type RouteLoaderFnArgs<R extends RouteName> = Parameters<
-  RouteLoaderFn<R>
->
+export type RouteLoader<R extends RouteName> = typeof LOADERS[R]
 
-export type RouteLoaderFn<R extends RouteName> = typeof LOADERS[R]
+export type RouteLoaderArgs<R extends RouteName> = Parameters<RouteLoader<R>>
 
-export type RouteLoaderData<R extends RouteName> = ReturnType<typeof LOADERS[R]>
+export type RouteLoaderData<R extends RouteName> = ReturnType<RouteLoader<R>>
 
 export type RouteComponent<R extends RouteName> = ComponentType<{
   data: RouteLoaderData<R>

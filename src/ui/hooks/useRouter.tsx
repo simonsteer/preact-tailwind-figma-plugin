@@ -6,29 +6,30 @@ import {
   useMemo,
   useState,
 } from 'react'
-import { RouteData, RouteName, RouteLoaderFnArgs } from '~/shared/types/routes'
+import { RouteData, RouteName, RouteLoaderArgs } from '~/shared/types/routes'
 import { messageFromUI } from '~/ui/utils'
 import { useMessages } from '~/ui/hooks'
 
 const RouterContext = createContext<{
   route: RouteData | null
-  routeTo: <R extends RouteName>(name: R, ...args: RouteLoaderFnArgs<R>) => void
+  routeTo: <R extends RouteName>(name: R, ...args: RouteLoaderArgs<R>) => void
 }>(null)
 
 export const RouterProvider = ({ children }: { children: ReactNode }) => {
   const [route, setRoute] = useState<RouteData>(null)
 
   const messages = useMessages()
-  useEffect(() => {
-    return messages.on('controller/routeTo', payload => {
-      console.log(payload)
-      setRoute(payload)
-    })
-  }, [])
+  useEffect(
+    () =>
+      messages.on('controller/routeTo', payload => {
+        setRoute(payload)
+      }),
+    []
+  )
 
   const routeTo = <R extends RouteName>(
     name: R,
-    ...args: RouteLoaderFnArgs<R>
+    ...args: RouteLoaderArgs<R>
   ) => {
     messageFromUI({ type: 'ui/routeTo', payload: { name, args } })
   }

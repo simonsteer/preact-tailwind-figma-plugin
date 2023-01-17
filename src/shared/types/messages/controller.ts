@@ -1,13 +1,19 @@
-import { RouteData } from '~/shared/types'
+import { RouteData, EndpointData, SelectionData } from '~/shared/types'
 
-export type MessageFromControllerType = MessageFromController['type']
+export type MessageFromControllerType = keyof MessagesFromController
 
 export type MessageFromControllerPayload<T extends MessageFromControllerType> =
-  (MessageFromController & { type: T })['payload']
+  MessagesFromController[T]
 
-export type MessageFromController = ControllerRouteTo
+export type MessageFromController = {
+  [T in MessageFromControllerType]: {
+    type: T
+    payload: MessagesFromController[T]
+  }
+}[MessageFromControllerType]
 
-export type ControllerRouteTo = {
-  type: 'controller/routeTo'
-  payload: RouteData
+export type MessagesFromController = {
+  ['controller/routeTo']: RouteData
+  ['controller/api']: EndpointData
+  ['controller/selection']: SelectionData
 }

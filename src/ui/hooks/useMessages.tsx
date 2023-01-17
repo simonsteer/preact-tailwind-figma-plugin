@@ -42,7 +42,7 @@ export const MessagesProvider = ({ children }: { children: ReactNode }) => {
     return () => {
       listeners.current[type] = listeners.current[type].filter(
         cb => cb !== callback
-      )
+      ) as any
     }
   }
 
@@ -53,14 +53,14 @@ export const MessagesProvider = ({ children }: { children: ReactNode }) => {
       callback(...args)
       listeners.current[type] = listeners.current[type].filter(
         cb => cb !== wrappedCallback
-      )
+      ) as any
     }
     listeners.current[type].push(callback)
 
     return () => {
       listeners.current[type] = listeners.current[type].filter(
         cb => cb !== wrappedCallback
-      )
+      ) as any
     }
   }
 
