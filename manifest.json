@@ -1,0 +1,10 @@
+{
+  "name": "Figma Plugin",
+  "id": "99999999",
+  "api": "1.0.0",
+  "main": "dist/controller/index.js",
+  "ui": "dist/index.html",
+  "editorType": [
+    "figma"
+  ]
+}
