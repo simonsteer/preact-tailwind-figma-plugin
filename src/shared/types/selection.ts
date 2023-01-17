@@ -1,3 +1,6 @@
 import { getSelection } from '~/controller/utils'
 
-export type SelectionData = ReturnType<typeof getSelection>
+export type SelectionData = {
+  data: ReturnType<typeof getSelection>
+  id: string
+}

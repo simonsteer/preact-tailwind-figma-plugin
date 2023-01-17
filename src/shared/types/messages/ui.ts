@@ -19,5 +19,5 @@ export type UIAPI<E extends EndpointName = EndpointName> = {
 
 export type UISelection = {
   type: 'ui/selection'
-  payload: boolean
+  payload: { active: boolean; id: string }
 }
