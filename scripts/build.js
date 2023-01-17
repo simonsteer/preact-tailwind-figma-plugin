@@ -58,7 +58,7 @@ esbuild
     fs.writeFileSync(path.resolve(dist, 'index.html'), html.join('\n'))
 
     // delete other items in dist folder
-    fs.rmSync(path.resolve(dist, 'css'), { recursive: true, force: true })
+    // fs.rmSync(path.resolve(dist, 'css'), { recursive: true, force: true })
     fs.rmSync(path.resolve(dist, 'js'), { recursive: true, force: true })
     fs.rmSync(path.resolve(dist, 'ui'), { recursive: true, force: true })
 
