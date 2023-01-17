@@ -58,6 +58,12 @@ esbuild
     // replace html file with updated content
     fs.writeFileSync(path.resolve(dist, 'index.html'), html.join('\n'))
 
+    // delete other items in dist folder
+    fs.rmSync(path.resolve(dist, 'assets'), { recursive: true, force: true })
+    fs.rmSync(path.resolve(dist, 'css'), { recursive: true, force: true })
+    fs.rmSync(path.resolve(dist, 'js'), { recursive: true, force: true })
+    fs.rmSync(path.resolve(dist, 'ui'), { recursive: true, force: true })
+
     const elapsed = performance.now() - then
     console.log(`Project built in ${elapsed}ms`)
   })
