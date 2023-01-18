@@ -13,6 +13,13 @@ export type RouteData = {
   }
 }[RouteName]
 
+export type RouteToPayload = {
+  [R in RouteName]: {
+    name: R
+    args: RouteLoaderArgs<R>
+  }
+}[RouteName]
+
 export type RouteLoader<R extends RouteName> = R extends LoaderName
   ? typeof LOADERS[R]
   : () => {}

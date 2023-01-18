@@ -1,20 +1,16 @@
-import {
-  RouteName,
-  RouteLoaderArgs,
-  EndpointName,
-  EndpointFnArgs,
-} from '~/types'
+import { RouteToPayload } from '~/types'
+import { EndpointPayload } from '../api'
 
 export type UIMessage = UIRouteTo | UIAPI | UISelection
 
-export type UIRouteTo<R extends RouteName = RouteName> = {
+export type UIRouteTo = {
   type: 'ui/routeTo'
-  payload: { name: R; args: RouteLoaderArgs<R> }
+  payload: RouteToPayload
 }
 
-export type UIAPI<E extends EndpointName = EndpointName> = {
+export type UIAPI = {
   type: 'ui/api'
-  payload: { name: E; args: EndpointFnArgs<E> }
+  payload: EndpointPayload
 }
 
 export type UISelection = {

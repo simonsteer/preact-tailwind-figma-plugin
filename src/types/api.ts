@@ -11,3 +11,7 @@ export type EndpointFnData<E extends EndpointName> = ReturnType<EndpointFn<E>>
 export type EndpointData = {
   [E in EndpointName]: { name: E; data: ReturnType<EndpointFn<E>> }
 }[EndpointName]
+
+export type EndpointPayload = {
+  [E in EndpointName]: { name: E; data: EndpointFnArgs<E> }
+}[EndpointName]

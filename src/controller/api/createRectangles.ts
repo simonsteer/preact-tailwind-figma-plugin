@@ -1,9 +1,9 @@
-export const createRectangles = (count = 5) => {
+export const createRectangles = (count: number, b: number) => {
   const nodes: SceneNode[] = []
   for (let i = 0; i < count; i++) {
     const rect = figma.createRectangle()
     rect.x = i * 150
-    rect.fills = [{ type: 'SOLID', color: { r: 1, g: 0.5, b: 0 } }]
+    rect.fills = [{ type: 'SOLID', color: { r: 1, g: 0.5, b } }]
     figma.currentPage.appendChild(rect)
     nodes.push(rect)
   }
