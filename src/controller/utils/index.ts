@@ -1,3 +1,3 @@
 export * from './message'
 export * from './setupMessages'
-export * from './getSelection'
+export * from './serializeSceneNode'

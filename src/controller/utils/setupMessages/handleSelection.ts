@@ -1,5 +1,6 @@
-import { messageFromController, getSelection } from '~/controller/utils'
+import { messageFromController } from '~/controller/utils'
 import { UISelection } from '~/shared/types'
+import { serializeSceneNode } from '../serializeSceneNode'
 
 let didSetupHandler = false
 let ids: string[] = []
@@ -8,7 +9,10 @@ const onSelectionChange = () => {
   ids.forEach(id =>
     messageFromController({
       type: 'controller/selection',
-      payload: { id, data: getSelection() },
+      payload: {
+        id,
+        data: figma.currentPage.selection.map(serializeSceneNode),
+      },
     })
   )
 }

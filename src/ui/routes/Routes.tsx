@@ -23,9 +23,5 @@ export default function Routes() {
 
   const RouteComponent = ROUTE_MAP[route.name]
 
-  return (
-    <div className="animate-fade-in">
-      <RouteComponent data={route.data as any} />
-    </div>
-  )
+  return <RouteComponent data={route.data as any} />
 }
