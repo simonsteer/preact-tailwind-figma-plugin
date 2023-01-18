@@ -1,12 +1,11 @@
+import { createContext, ComponentChildren } from 'preact'
 import {
-  createContext,
-  ReactNode,
   useCallback,
   useContext,
   useEffect,
   useMemo,
   useRef,
-} from 'react'
+} from 'preact/hooks'
 import {
   ControllerMessage,
   ControllerMessagePayload,
@@ -23,7 +22,11 @@ const MessagesContext = createContext<{ on: OnMessageFn; once: OnMessageFn }>({
   once: () => () => {},
 })
 
-export const MessagesProvider = ({ children }: { children: ReactNode }) => {
+export const MessagesProvider = ({
+  children,
+}: {
+  children: ComponentChildren
+}) => {
   const listeners = useRef<
     {
       [T in ControllerMessageType]?: ((

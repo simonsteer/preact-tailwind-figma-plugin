@@ -1,11 +1,5 @@
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react'
+import { createContext, ComponentChildren } from 'preact'
+import { useContext, useEffect, useMemo, useState } from 'preact/hooks'
 import { RouteData, RouteName, RouteLoaderArgs } from '~/types/routes'
 import { uiMessage } from '~/ui/lib'
 import { useMessages } from '~/ui/lib'
@@ -15,7 +9,11 @@ const RouterContext = createContext<{
   routeTo: <R extends RouteName>(name: R, ...args: RouteLoaderArgs<R>) => void
 }>(null)
 
-export const RouterProvider = ({ children }: { children: ReactNode }) => {
+export const RouterProvider = ({
+  children,
+}: {
+  children: ComponentChildren
+}) => {
   const [route, setRoute] = useState<RouteData>(null)
 
   const messages = useMessages()

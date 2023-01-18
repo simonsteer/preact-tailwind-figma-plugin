@@ -1,13 +1,15 @@
 {
   "compilerOptions": {
-    "module": "CommonJS",
     "target": "es2017",
     "outDir": "dist",
     "baseUrl": "./src",
     "paths": {
-      "~/*": ["./*"]
+      "~/*": ["./*"],
+      "react": ["./node_modules/preact/compat/"],
+      "react-dom": ["./node_modules/preact/compat/"]
     },
     "jsx": "react-jsx",
+    "jsxImportSource": "preact",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "experimentalDecorators": true,

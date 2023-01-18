@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect } from 'preact/hooks'
 import { RouteName } from '~/types'
 import { useRouter } from '~/ui/lib'
 import * as ROUTE_MAP from '~/ui/routes'

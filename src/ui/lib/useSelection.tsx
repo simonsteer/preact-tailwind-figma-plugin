@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from 'react'
+import { useEffect, useId, useState } from 'preact/hooks'
 import { SelectionData } from '~/types'
 import { uiMessage } from '~/ui/lib'
 import { useMessages } from '~/ui/lib'

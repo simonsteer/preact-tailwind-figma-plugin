@@ -1,6 +1,6 @@
 import * as ROUTES from '~/ui/routes'
 import * as LOADERS from '~/controller/loaders'
-import { ComponentType } from 'react'
+import { ComponentType } from 'preact'
 
 export type LoaderName = keyof typeof LOADERS
 

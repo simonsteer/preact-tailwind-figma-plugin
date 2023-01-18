@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback } from 'preact/hooks'
 import { EndpointFnData, EndpointFnArgs, EndpointName } from '~/types'
 import { useMessages } from '~/ui/lib'
 import { uiMessage } from '~/ui/lib'
