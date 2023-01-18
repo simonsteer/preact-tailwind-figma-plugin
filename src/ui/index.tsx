@@ -1,10 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
+import { Router, RouterProvider, MessagesProvider } from '~/ui/lib'
 import './style.css'
 
 ReactDOM.createRoot(document.getElementById('react-page')).render(
   <React.StrictMode>
-    <App />
+    <MessagesProvider>
+      <RouterProvider>
+        <Router />
+      </RouterProvider>
+    </MessagesProvider>
   </React.StrictMode>
 )
