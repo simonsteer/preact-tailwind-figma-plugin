@@ -1,4 +1,3 @@
-import { setupMessages } from '~/controller/utils'
+import { setupController } from '~/controller/lib'
 
-setupMessages()
-figma.showUI(__html__, { width: 480, height: 300 })
+setupController()

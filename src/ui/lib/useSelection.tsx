@@ -1,7 +1,7 @@
 import { useEffect, useId, useState } from 'react'
-import { SelectionData } from '~/shared/types'
-import { messageFromUI } from '../utils'
-import { useMessages } from './useMessages'
+import { SelectionData } from '~/types'
+import { uiMessage } from '~/ui/lib'
+import { useMessages } from '~/ui/lib'
 
 export function useSelection() {
   const id = useId()
@@ -13,10 +13,10 @@ export function useSelection() {
       if (selection.id === id) setSelection(selection.data)
     })
 
-    messageFromUI({ type: 'ui/selection', payload: { active: true, id } })
+    uiMessage({ type: 'ui/selection', payload: { active: true, id } })
     return () => {
       off()
-      messageFromUI({ type: 'ui/selection', payload: { active: false, id } })
+      uiMessage({ type: 'ui/selection', payload: { active: false, id } })
     }
   }, [])
 

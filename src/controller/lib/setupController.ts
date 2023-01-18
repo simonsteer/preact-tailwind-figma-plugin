@@ -1,10 +1,10 @@
-import { MessageFromUI } from '~/shared/types'
+import { UIMessage } from '~/types'
 import { handleAPI } from './handleAPI'
 import { handleRouteTo } from './handleRouteTo'
 import { handleSelection } from './handleSelection'
 
-export const setupMessages = () => {
-  figma.ui.onmessage = (message: MessageFromUI) => {
+export const setupController = () => {
+  figma.ui.onmessage = (message: UIMessage) => {
     switch (message.type) {
       case 'ui/selection':
         handleSelection(message)
@@ -19,4 +19,5 @@ export const setupMessages = () => {
         break
     }
   }
+  figma.showUI(__html__, { width: 480, height: 300 })
 }

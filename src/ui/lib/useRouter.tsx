@@ -6,9 +6,9 @@ import {
   useMemo,
   useState,
 } from 'react'
-import { RouteData, RouteName, RouteLoaderArgs } from '~/shared/types/routes'
-import { messageFromUI } from '~/ui/utils'
-import { useMessages } from '~/ui/hooks'
+import { RouteData, RouteName, RouteLoaderArgs } from '~/types/routes'
+import { uiMessage } from '~/ui/lib'
+import { useMessages } from '~/ui/lib'
 
 const RouterContext = createContext<{
   route: RouteData | null
@@ -31,7 +31,7 @@ export const RouterProvider = ({ children }: { children: ReactNode }) => {
     name: R,
     ...args: RouteLoaderArgs<R>
   ) => {
-    messageFromUI({ type: 'ui/routeTo', payload: { name, args } })
+    uiMessage({ type: 'ui/routeTo', payload: { name, args } })
   }
 
   return (

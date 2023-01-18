@@ -1,17 +1,19 @@
-import { messageFromController } from '~/controller/utils'
-import { UISelection } from '~/shared/types'
-import { serializeSceneNode } from '../serializeSceneNode'
+import { pick } from 'lodash'
+import { UISelection } from '~/types'
+import { controllerMessage } from '~/controller/lib'
 
 let didSetupHandler = false
 let ids: string[] = []
 
 const onSelectionChange = () => {
   ids.forEach(id =>
-    messageFromController({
+    controllerMessage({
       type: 'controller/selection',
       payload: {
         id,
-        data: figma.currentPage.selection.map(serializeSceneNode),
+        data: figma.currentPage.selection.map(node =>
+          pick(node, ['width', 'height', 'id', 'name'])
+        ),
       },
     })
   )

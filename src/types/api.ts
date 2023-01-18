@@ -1,4 +1,4 @@
-import API from '~/controller/api'
+import * as API from '~/controller/api'
 
 export type EndpointName = keyof typeof API
 

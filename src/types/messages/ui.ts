@@ -3,9 +3,9 @@ import {
   RouteLoaderArgs,
   EndpointName,
   EndpointFnArgs,
-} from '~/shared/types'
+} from '~/types'
 
-export type MessageFromUI = UIRouteTo | UIAPI | UISelection
+export type UIMessage = UIRouteTo | UIAPI | UISelection
 
 export type UIRouteTo<R extends RouteName = RouteName> = {
   type: 'ui/routeTo'

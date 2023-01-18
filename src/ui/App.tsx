@@ -1,11 +1,10 @@
-import { RouterProvider, MessagesProvider } from '~/ui/hooks'
-import Routes from '~/ui/routes'
+import { Router, RouterProvider, MessagesProvider } from '~/ui/lib'
 
 export default function App() {
   return (
     <MessagesProvider>
       <RouterProvider>
-        <Routes />
+        <Router />
       </RouterProvider>
     </MessagesProvider>
   )

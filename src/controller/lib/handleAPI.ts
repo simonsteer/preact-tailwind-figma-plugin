@@ -1,11 +1,11 @@
-import { UIAPI } from '~/shared/types'
-import { messageFromController } from '~/controller/utils'
-import API from '~/controller/api'
+import { UIAPI } from '~/types'
+import { controllerMessage } from '~/controller/lib'
+import * as API from '~/controller/api'
 
 export const handleAPI = (message: UIAPI) => {
   const { name, args } = message.payload
 
-  messageFromController({
+  controllerMessage({
     type: 'controller/api',
     payload: { name, data: API[name](...args) },
   })

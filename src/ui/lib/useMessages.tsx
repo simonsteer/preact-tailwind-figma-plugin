@@ -1,13 +1,21 @@
-import { createContext, ReactNode, useContext, useEffect, useRef } from 'react'
 import {
-  MessageFromController,
-  MessageFromControllerPayload,
-  MessageFromControllerType,
-} from '~/shared/types'
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react'
+import {
+  ControllerMessage,
+  ControllerMessagePayload,
+  ControllerMessageType,
+} from '~/types'
 
-type OnMessageFn = <T extends MessageFromControllerType>(
+type OnMessageFn = <T extends ControllerMessageType>(
   type: T,
-  callback: (payload: MessageFromControllerPayload<T>) => void
+  callback: (payload: ControllerMessagePayload<T>) => void
 ) => () => void
 
 const MessagesContext = createContext<{ on: OnMessageFn; once: OnMessageFn }>({
@@ -18,15 +26,15 @@ const MessagesContext = createContext<{ on: OnMessageFn; once: OnMessageFn }>({
 export const MessagesProvider = ({ children }: { children: ReactNode }) => {
   const listeners = useRef<
     {
-      [T in MessageFromControllerType]?: ((
-        payload: MessageFromControllerPayload<T>
+      [T in ControllerMessageType]?: ((
+        payload: ControllerMessagePayload<T>
       ) => void)[]
     }
   >({})
 
   useEffect(() => {
     onmessage = message => {
-      const data = message.data.pluginMessage as MessageFromController
+      const data = message.data.pluginMessage as ControllerMessage
       listeners.current[data.type]?.forEach(listener => listener(data.payload))
     }
     return () => {
@@ -34,7 +42,7 @@ export const MessagesProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [])
 
-  const on: OnMessageFn = (type, callback) => {
+  const on: OnMessageFn = useCallback((type, callback) => {
     if (!listeners.current[type]) listeners.current[type] = []
 
     listeners.current[type].push(callback)
@@ -44,9 +52,9 @@ export const MessagesProvider = ({ children }: { children: ReactNode }) => {
         cb => cb !== callback
       ) as any
     }
-  }
+  }, [])
 
-  const once: OnMessageFn = (type, callback) => {
+  const once: OnMessageFn = useCallback((type, callback) => {
     if (!listeners.current[type]) listeners.current[type] = []
 
     const wrappedCallback = (...args: Parameters<typeof callback>) => {
@@ -62,10 +70,10 @@ export const MessagesProvider = ({ children }: { children: ReactNode }) => {
         cb => cb !== wrappedCallback
       ) as any
     }
-  }
+  }, [])
 
   return (
-    <MessagesContext.Provider value={{ on, once }}>
+    <MessagesContext.Provider value={useMemo(() => ({ on, once }), [])}>
       {children}
     </MessagesContext.Provider>
   )
