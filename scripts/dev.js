@@ -12,6 +12,7 @@ client.capabilityCheck({ required: ['relative_root'] }, (error, res) => {
   }
 
   client.command(
+    // TODO: why is watchman subscribing to changes in the project root instead of src?
     ['watch-project', path.resolve(process.cwd(), 'src')],
     function (error, res) {
       if (error) {
@@ -56,17 +57,25 @@ client.capabilityCheck({ required: ['relative_root'] }, (error, res) => {
         if (initial) {
           initial = false
           console.log('Building project...')
-        } else {
-          console.log(
-            'Rebuilding project due to changed files: ' + res.files.join(', ')
-          )
+          buildProject()
+          return
         }
 
-        exec('node scripts/build.js', (err, stdout) => {
-          if (err) console.error(err)
-          else console.log(stdout)
-        })
+        // TODO: why is watchman subscribing to changes in the project root instead of src?
+        const files = res.files.filter(f => f.startsWith('src'))
+        if (files.length > 0) {
+          console.log(
+            'Rebuilding project due to changed files: ' + files.join(', ')
+          )
+          buildProject()
+        }
       })
     }
   )
 })
+
+const buildProject = () =>
+  exec('node scripts/build.js', (err, stdout) => {
+    if (err) console.error(err)
+    else console.log(stdout)
+  })
